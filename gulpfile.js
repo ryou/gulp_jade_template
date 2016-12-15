@@ -8,7 +8,6 @@ var watch   = require('gulp-watch');
 var del     = require('del');
 
 // html関係
-var ejs = require('gulp-ejs');
 var pug = require('gulp-pug');
 
 // css関係
@@ -35,23 +34,13 @@ var paths = {
   dest: './dist'
 };
 
-gulp.task('ejs', function() {
-  gulp.src(paths.ejs)
-      .pipe(ejs())
-      // phpの案件なら、phpに拡張子変換
-      // .pipe(rename({
-      //   extname: '.php'
-      // }))
-      .pipe(gulp.dest(paths.dest))
-      .pipe(browserSync.stream());
-});
-
 gulp.task('pug', function() {
   gulp.src('src/dist_root/**/*.pug')
       .pipe(pug({
         pretty: true
       }))
-      .pipe(gulp.dest(paths.dest));
+      .pipe(gulp.dest(paths.dest))
+      .pipe(browserSync.stream());
 });
 
 gulp.task('sass', function() {
@@ -112,7 +101,7 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('build', ['clean'], function() {
-  gulp.start(['cp', 'ejs', 'sass', 'img']);
+  gulp.start(['cp', 'pug', 'sass', 'img']);
 });
 
 gulp.task('default', ['build'], function() {
@@ -124,8 +113,8 @@ gulp.task('default', ['build'], function() {
     ghostMode: false
   });
 
-  watch('./src/**/*.ejs', function(event) {
-    gulp.start('ejs');
+  watch('./src/**/*.pug', function(event) {
+    gulp.start('pug');
   });
   watch('./src/**/*.scss', function(event) {
     gulp.start('sass');
