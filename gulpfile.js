@@ -9,6 +9,7 @@ var del     = require('del');
 
 // html関係
 var ejs = require('gulp-ejs');
+var pug = require('gulp-pug');
 
 // css関係
 var sass         = require('gulp-ruby-sass');
@@ -43,6 +44,14 @@ gulp.task('ejs', function() {
       // }))
       .pipe(gulp.dest(paths.dest))
       .pipe(browserSync.stream());
+});
+
+gulp.task('pug', function() {
+  gulp.src('src/dist_root/**/*.pug')
+      .pipe(pug({
+        pretty: true
+      }))
+      .pipe(gulp.dest(paths.dest));
 });
 
 gulp.task('sass', function() {
