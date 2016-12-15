@@ -1,0 +1,45 @@
+doctype html
+html(lang='ja', prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#')
+  head
+    block metas
+    meta(charset='utf-8')
+    title= title
+    meta(name='description', content=description)
+    meta(name='keywords', content=keywords)
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='format-detection', content='telephone=no')
+
+    // OGP
+    meta(property='og:title', content=title)
+    meta(property='og:type', content='website')
+    meta(property='og:description', content=description)
+    meta(property='og:url', content='')
+    meta(property='og:image', content='')
+    meta(property='og:site_name', content='')
+    meta(property='og:locale', content='ja_JP')
+
+    // COMMON CSS
+    link(rel='stylesheet', href='./common/css/base.css', media='all')
+    link(rel='stylesheet', href='./common/css/common.css', media='all')
+
+    // PAGE ONLY CSS
+    block pageCss
+
+    //if lt IE 9
+      script(src='./common/js/lib/html5shiv.min.js')
+  body
+    header#GHead
+
+    #Contents
+      block contents
+
+    footer#GFoot
+
+    // COMMON JS
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js')
+    script.
+      window.jQuery || document.write('<script src="./common/js/lib/jquery.min.js"><\\/script>')
+    script(src='./common/js/common.js')
+
+    // PAGE ONLY JS
+    block pageJs
