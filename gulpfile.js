@@ -24,18 +24,18 @@ var pngquant = require('imagemin-pngquant');
 
 
 var paths = {
-  ejs: ['./src/dist_root/**/*.ejs'],
+  pug: ['./src/dist_root/**/*.pug'],
   sass: './src/dist_root/**/*.scss',
   png: './src/dist_root/**/*.png',
   cp: [
     './src/dist_root/**/*',
-    '!./src/dist_root/**/{*.ejs,*.scss,*.png}'
+    '!./src/dist_root/**/{*.pug,*.scss,*.png}'
   ],
   dest: './dist'
 };
 
 gulp.task('pug', function() {
-  gulp.src('src/dist_root/**/*.pug')
+  gulp.src(paths.pug)
       .pipe(pug({
         pretty: true
       }))
