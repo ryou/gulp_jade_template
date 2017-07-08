@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gulp": "gulp"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.10.0",
+    "browserify": "^14.4.0",
     "del": "^2.2.1",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^3.1.0",
@@ -21,6 +22,8 @@
     "gulp-rename": "^1.2.2",
     "gulp-ruby-sass": "^1.0.5",
     "gulp-watch": "^4.3.5",
-    "imagemin-pngquant": "^4.2.0"
+    "imagemin-pngquant": "^4.2.0",
+    "jquery2": "^2.0.3-a",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

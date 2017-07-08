@@ -15,6 +15,10 @@ var sass         = require('gulp-ruby-sass');
 var csscomb      = require('gulp-csscomb');
 var autoprefixer = require('gulp-autoprefixer');
 
+// js関係
+var browserify = require('browserify');
+var source     = require('vinyl-source-stream');
+
 // ブラウザ関係
 var browserSync = require('browser-sync').create();
 
@@ -27,6 +31,7 @@ var paths = {
   pug: ['./src/dist_root/**/*.pug'],
   sass: './src/dist_root/**/*.scss',
   png: './src/dist_root/**/*.png',
+  js: './src/etc/browserify',
   cp: [
     './src/dist_root/**/*',
     '!./src/dist_root/**/{*.pug,*.scss,*.png}'
@@ -55,6 +60,13 @@ gulp.task('sass', function() {
   .pipe(csscomb())
   .pipe(gulp.dest(paths.dest))
   .pipe(browserSync.stream());
+});
+
+gulp.task('js', function() {
+  return browserify(paths.js + '/main.js')
+          .bundle()
+          .pipe(source('bundle.js'))
+          .pipe(gulp.dest(paths.dest + '/common/js/'));
 });
 
 gulp.task('img', function(){
@@ -101,7 +113,7 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('build', ['clean'], function() {
-  gulp.start(['cp', 'pug', 'sass', 'img']);
+  gulp.start(['cp', 'pug', 'sass', 'js', 'img']);
 });
 
 gulp.task('default', ['build'], function() {
@@ -118,6 +130,9 @@ gulp.task('default', ['build'], function() {
   });
   watch('./src/**/*.scss', function(event) {
     gulp.start('sass');
+  });
+  watch(paths.js + '/**/*.js', function(event) {
+    gulp.start('js');
   });
   watch([paths.png], function(event) {
     gulp.start('img');
